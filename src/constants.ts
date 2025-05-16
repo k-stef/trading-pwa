@@ -1,0 +1,1 @@
+export const transactionFee = 1.0;
