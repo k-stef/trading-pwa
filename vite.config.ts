@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
+      filename: "service-worker.js",
       manifest: {
         name: "Trading App",
         short_name: "Trading",
