@@ -19,6 +19,9 @@ const App: React.FC = () => {
           p: 0,
         }}
       >
+        <div style={{ color: "white", fontSize: 32, textAlign: "center" }}>
+          TEST RENDER
+        </div>
         <Router>
           <Routes>
             <Route path="/" element={<Overview />} />
