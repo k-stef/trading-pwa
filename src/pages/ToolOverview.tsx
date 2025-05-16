@@ -1,14 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Paper, Typography, GridLegacy } from "@mui/material";
+import { Box, Paper, Typography, Grid } from "@mui/material";
 
-const tools = [
+type Tool = {
+  id: number;
+  name: string;
+};
+
+const tools: Tool[] = [
   { id: 1, name: "Tool 1" },
   { id: 2, name: "Tool 2" },
   { id: 3, name: "Tool 3" },
 ];
 
-const Home: React.FC = () => {
+const ToolOverview: React.FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -16,17 +21,17 @@ const Home: React.FC = () => {
       <Typography variant="h4" align="center" gutterBottom>
         Trading Tools
       </Typography>
-      <GridLegacy container spacing={3} justifyContent="center">
+      <Grid container spacing={3} justifyContent="flex-start">
         {tools.map((tool) => (
-          <GridLegacy item xs={6} sm={4} key={tool.id}>
+          <Grid key={tool.id} size={{ xs: 6 }}>
             <Paper
               elevation={4}
               sx={{
+                aspectRatio: "1/1",
                 p: 4,
                 textAlign: "center",
                 borderRadius: 3,
                 cursor: "pointer",
-                minHeight: 120,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -38,11 +43,11 @@ const Home: React.FC = () => {
             >
               <Typography variant="h6">{tool.name}</Typography>
             </Paper>
-          </GridLegacy>
+          </Grid>
         ))}
-      </GridLegacy>
+      </Grid>
     </Box>
   );
 };
 
-export default Home;
+export default ToolOverview;

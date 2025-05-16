@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/ToolOverview';
 import ToolPage from './pages/ToolPage';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './theme';
