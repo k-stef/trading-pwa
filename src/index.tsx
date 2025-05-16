@@ -2,17 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
+// Import the VitePWA registration helper
+import { registerSW } from "virtual:pwa-register";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
 
-// Register service worker if supported
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register(
-      `${import.meta.env.BASE_URL}service-worker.js`
-    );
-  });
-}
+// Register the service worker
+registerSW();
