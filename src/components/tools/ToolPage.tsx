@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Typography, Button, Container, Box } from "@mui/material";
 import ReturnCalc from "./ReturnCalc";
 import { tools } from "../Overview";
+import { ArrowBackIosNew } from "@mui/icons-material";
 
 const ToolPage: React.FC = () => {
   const { toolId } = useParams<{ toolId: string }>();
@@ -23,7 +24,12 @@ const ToolPage: React.FC = () => {
           "Unknown Tool"}
       </Typography>
       <Box my={3}>{renderToolContent()}</Box>
-      <Button variant="contained" component={Link} to="/">
+      <Button
+        variant="contained"
+        component={Link}
+        to="/"
+        startIcon={<ArrowBackIosNew />}
+      >
         Back to Tools
       </Button>
     </Container>
