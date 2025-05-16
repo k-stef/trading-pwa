@@ -16,8 +16,8 @@ export const Tile: React.FC<{
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      bgcolor: "#222",
-      color: "#fff",
+      bgcolor: "secondary.main",
+      color: "text.primary",
       "&:hover": { bgcolor: "#444" },
     }}
     onClick={onClick}
