@@ -23,7 +23,7 @@ export const PriceInputFields: React.FC<PriceInputFieldsProps> = ({
                                                                       onSellQtyChange
                                                                   }: PriceInputFieldsProps) => (
     <>
-        <Grid container spacing={2}>
+        <Grid container marginBottom={2} spacing={2}>
             <Grid size={{xs: 8}}>
                 <TextField
                     label="Buy Price (€)"

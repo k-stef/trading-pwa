@@ -1,14 +1,15 @@
 import React, {useState} from "react";
-import {Box} from "@mui/material";
-import {transactionFee} from "../../../constants";
+import {Grid} from "@mui/material";
 import {Returns} from "./Returns";
 import {PriceInputFields} from "./PriceInputFields";
+import {FeeInputs} from "./FeeInputs";
 
 export const ReturnCalc: React.FC = () => {
     const [buy, setBuy] = useState<string>("");
     const [buyQty, setBuyQty] = useState<string>("1");
     const [sell, setSell] = useState<string>("");
     const [sellQty, setSellQty] = useState<string>("1");
+    const [selectedFeeButton, setSelectedFeeButton] = useState<number>(1);
 
     const buyNum = parseFloat(buy.replace(",", "."));
     const buyQtyNum = parseInt(buyQty, 10);
@@ -28,28 +29,33 @@ export const ReturnCalc: React.FC = () => {
     const totalSell = sellNum * sellQtyNum;
 
     const returnEuro = valid
-        ? totalSell - totalBuy - 2 * transactionFee
+        ? totalSell - totalBuy - selectedFeeButton
         : undefined;
     const returnPercent = valid
-        ? ((totalSell - totalBuy - 2 * transactionFee) / totalBuy) * 100
+        ? ((totalSell - totalBuy - selectedFeeButton) / totalBuy) * 100
         : undefined;
 
     return (
-        <Box
-            sx={{display: "flex", flexDirection: "column", gap: 2, maxWidth: 400}}
-        >
-            <PriceInputFields
-                buy={buy}
-                buyQty={buyQty}
-                sell={sell}
-                sellQty={sellQty}
-                onBuyChange={setBuy}
-                onBuyQtyChange={setBuyQty}
-                onSellChange={setSell}
-                onSellQtyChange={setSellQty}
-            />
-            <Returns returnEuro={returnEuro} returnPercent={returnPercent} valid={valid}/>
-        </Box>
+        <Grid container spacing={4} direction="column">
+            <Grid>
+                <FeeInputs selectedFeeButton={selectedFeeButton} setSelectedFeeButton={setSelectedFeeButton}/>
+            </Grid>
+            <Grid>
+                <PriceInputFields
+                    buy={buy}
+                    buyQty={buyQty}
+                    sell={sell}
+                    sellQty={sellQty}
+                    onBuyChange={setBuy}
+                    onBuyQtyChange={setBuyQty}
+                    onSellChange={setSell}
+                    onSellQtyChange={setSellQty}
+                />
+            </Grid>
+            <Grid>
+                <Returns returnEuro={returnEuro} returnPercent={returnPercent} valid={valid}/>
+            </Grid>
+        </Grid>
     );
 };
 
