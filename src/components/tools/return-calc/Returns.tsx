@@ -9,35 +9,80 @@ export const Returns: React.FC<{
     valid: boolean
 }> = ({returnEuroBeforeTaxes, returnPercentBeforeTaxes, returnEuroAfterTaxes, returnPercentAfterTaxes, valid}) => {
     return (
-        <Grid container spacing={2}>
+        <Grid container>
+            <ReturnBeforeTaxes
+                returnEuroBeforeTaxes={returnEuroBeforeTaxes}
+                returnPercentBeforeTaxes={returnPercentBeforeTaxes}
+                valid={valid}
+            />
+            <ReturnAfterTaxes
+                returnEuroAfterTaxes={returnEuroAfterTaxes}
+                returnPercentAfterTaxes={returnPercentAfterTaxes}
+                valid={valid}
+            />
+        </Grid>
+
+    );
+};
+
+const ReturnBeforeTaxes: React.FC<{
+    returnEuroBeforeTaxes: number | undefined;
+    returnPercentBeforeTaxes: number | undefined;
+    valid: boolean;
+}> = ({returnEuroBeforeTaxes, returnPercentBeforeTaxes, valid}) => {
+    return (
+        <>
             <Grid size={{xs: 6}}>
                 <Typography variant="subtitle1" marginBottom={1.5}>
                     Return before taxes:
                 </Typography>
             </Grid>
             <Grid size={{xs: 6}} display={"flex"} flexDirection={"row"} justifyContent={"flex-end"}>
-                <Typography variant="subtitle1">
-                    {valid ? `${returnEuroBeforeTaxes?.toFixed(2)} €` : "-"}
-                </Typography>
-                <Box mx={1}></Box>
-                <Typography variant="subtitle1">
-                    {valid ? `${returnPercentBeforeTaxes?.toFixed(2)} %` : "-"}
-                </Typography>
+                {valid ? (
+                    <>
+                        <Typography variant="subtitle1">
+                            {returnEuroBeforeTaxes?.toFixed(2)} €
+                        </Typography>
+                        <Box mx={1}></Box>
+                        <Typography variant="subtitle1">
+                            {returnPercentBeforeTaxes?.toFixed(2)} %
+                        </Typography>
+                    </>
+                ) : (
+                    <Typography variant="subtitle1"> - </Typography>
+                )}
             </Grid>
+        </>
+    )
+}
+
+const ReturnAfterTaxes: React.FC<{
+    returnEuroAfterTaxes: number | undefined;
+    returnPercentAfterTaxes: number | undefined;
+    valid: boolean;
+}> = ({returnEuroAfterTaxes, returnPercentAfterTaxes, valid}) => {
+    return (
+        <>
             <Grid size={{xs: 6}}>
                 <Typography variant="subtitle1" marginBottom={1.5}>
                     Return after taxes:
                 </Typography>
             </Grid>
             <Grid size={{xs: 6}} display={"flex"} flexDirection={"row"} justifyContent={"flex-end"}>
-                <Typography variant="subtitle1">
-                    {valid ? `${returnEuroAfterTaxes?.toFixed(2)} €` : "-"}
-                </Typography>
-                <Box mx={1}></Box>
-                <Typography variant="subtitle1">
-                    {valid ? `${returnPercentAfterTaxes?.toFixed(2)} %` : "-"}
-                </Typography>
+                {valid ? (
+                    <>
+                        <Typography variant="subtitle1">
+                            {returnEuroAfterTaxes?.toFixed(2)} €
+                        </Typography>
+                        <Box mx={1}></Box>
+                        <Typography variant="subtitle1">
+                            {returnPercentAfterTaxes?.toFixed(2)} %
+                        </Typography>
+                    </>
+                ) : (
+                    <Typography variant="subtitle1">-</Typography>
+                )}
             </Grid>
-        </Grid>
-    );
-};
+        </>
+    )
+}
