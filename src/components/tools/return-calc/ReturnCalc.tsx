@@ -28,11 +28,17 @@ export const ReturnCalc: React.FC = () => {
     const totalBuy = buyNum * buyQtyNum;
     const totalSell = sellNum * sellQtyNum;
 
-    const returnEuro = valid
+    const returnEuroBeforeTaxes = valid
         ? totalSell - totalBuy - selectedFeeButton
         : undefined;
-    const returnPercent = valid
+    const returnPercentBeforeTaxes = valid
         ? ((totalSell - totalBuy - selectedFeeButton) / totalBuy) * 100
+        : undefined;
+    const returnEuroAfterTaxes = valid
+        ? (totalSell - totalBuy - selectedFeeButton) * 0.75
+        : undefined;
+    const returnPercentAfterTaxes = valid
+        ? ((totalSell - totalBuy - selectedFeeButton) * 0.75 / totalBuy) * 100
         : undefined;
 
     return (
@@ -53,7 +59,12 @@ export const ReturnCalc: React.FC = () => {
                 />
             </Grid>
             <Grid>
-                <Returns returnEuro={returnEuro} returnPercent={returnPercent} valid={valid}/>
+                <Returns
+                    returnEuroBeforeTaxes={returnEuroBeforeTaxes}
+                    returnPercentBeforeTaxes={returnPercentBeforeTaxes}
+                    returnEuroAfterTaxes={returnEuroAfterTaxes}
+                    returnPercentAfterTaxes={returnPercentAfterTaxes}
+                    valid={valid}/>
             </Grid>
         </Grid>
     );
