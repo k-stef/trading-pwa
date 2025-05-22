@@ -50,8 +50,8 @@ const theme = createTheme({
             A700: "#616161",
         },
         background: {
-            default: "#1e1e1e",
-            paper: "#1e1e1e",
+            default: "#181818",
+            paper: "#181818",
         },
         text: {
             primary: "#ffffff",
