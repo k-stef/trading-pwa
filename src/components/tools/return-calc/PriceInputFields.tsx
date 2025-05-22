@@ -42,7 +42,10 @@ export const PriceInputFields: React.FC<PriceInputFieldsProps> = ({
                 <TextField
                     label="Buy Quantity"
                     value={buyQty}
-                    onChange={(e) => onBuyQtyChange(e.target.value.replace(/\D/g, ""))}
+                    onChange={(e) => {
+                        onBuyQtyChange(e.target.value.replace(/\D/g, ""))
+                        onSellQtyChange(e.target.value.replace(/\D/g, ""))
+                    }}
                     type="number"
                     slotProps={{
                         htmlInput: {
