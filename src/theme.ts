@@ -50,7 +50,7 @@ const theme = createTheme({
             A700: "#616161",
         },
         background: {
-            default: "#121212",
+            default: "#1e1e1e",
             paper: "#1e1e1e",
         },
         text: {
@@ -85,7 +85,7 @@ const theme = createTheme({
         body1: {
             fontSize: "1.1rem",
         },
-    
+
     },
 });
 
