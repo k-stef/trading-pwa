@@ -64,7 +64,7 @@ const ReturnAfterTaxes: React.FC<{
     return (
         <>
             <Grid size={{xs: 6}}>
-                <Typography variant="subtitle1" marginBottom={1.5}>
+                <Typography variant="subtitle1">
                     Return after taxes:
                 </Typography>
             </Grid>

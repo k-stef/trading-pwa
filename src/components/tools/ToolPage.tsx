@@ -32,6 +32,7 @@ const ToolPage: React.FC = () => {
                 component={Link}
                 to="/"
                 startIcon={<ArrowBackIosNew/>}
+                sx={{mt: 2}}
             >
                 Back to Tools
             </Button>
