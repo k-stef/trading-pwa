@@ -4,6 +4,7 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import ReturnCalc from "./return-calc/ReturnCalc";
 import {tools} from "../Overview";
 import {ArrowBackIosNew} from "@mui/icons-material";
+import {RRRCalc} from "./rrr-calc/RRRCalc";
 
 const ToolPage: React.FC = () => {
     const {toolId} = useParams<{ toolId: string }>();
@@ -12,6 +13,8 @@ const ToolPage: React.FC = () => {
         switch (toolId) {
             case "1":
                 return <ReturnCalc/>;
+            case "2":
+                return <RRRCalc/>;
             default:
                 return <div>Tool not found</div>;
         }
