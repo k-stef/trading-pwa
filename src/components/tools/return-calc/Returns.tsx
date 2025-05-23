@@ -69,7 +69,7 @@ const ReturnAfterTaxes: React.FC<{
                 </Typography>
             </Grid>
             <Grid size={{xs: 6}} display={"flex"} flexDirection={"row"} justifyContent={"flex-end"}>
-                {valid ? (
+                {valid && returnEuroAfterTaxes !== undefined && (returnEuroAfterTaxes > 0) ? (
                     <>
                         <Typography variant="subtitle1">
                             {returnEuroAfterTaxes?.toFixed(2)} €
