@@ -14,11 +14,6 @@ export const RRRCalc: React.FC = () => {
         const stopLoss = parseFloat(stopLossPrice);
         const takeProfit = parseFloat(takeProfitPrice);
 
-        if (isNaN(entry) || isNaN(stopLoss) || isNaN(takeProfit)) {
-            setRiskRewardRatio(null);
-            return;
-        }
-
         if (stopLoss >= entry) {
             setRiskRewardRatio(null);
             setError("Stop-Loss price must be lower than Entry price.");
@@ -54,14 +49,13 @@ export const RRRCalc: React.FC = () => {
                     setTakeProfitPrice={setTakeProfitPrice}
                 />
             </Grid>
-            {error && (
-                <Grid>
-                    <Typography variant="body1" color="error">
-                        {error}
-                    </Typography>
-                </Grid>
-            )}
-            {riskRewardRatio !== null && (
+            {error ? (
+                    <Grid>
+                        <Typography variant="body1" color="error">
+                            {error}
+                        </Typography>
+                    </Grid>
+                ) :
                 <Grid container justifyContent="space-between" alignItems="center">
                     <Grid>
                         <Typography variant="body1">
@@ -69,12 +63,15 @@ export const RRRCalc: React.FC = () => {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <Typography variant="body1">
-                            {riskRewardRatio.toFixed(2)}
-                        </Typography>
+                        {riskRewardRatio ? (
+                            <Typography variant="body1">
+                                {riskRewardRatio.toFixed(2)}
+                            </Typography>
+                        ) : "-"}
+
                     </Grid>
                 </Grid>
-            )}
+            }
         </Grid>
     );
 };
