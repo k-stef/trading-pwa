@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Grid, Typography} from "@mui/material";
 import {RRRPriceInput} from "./RRRPriceInput";
+import {transactionFee} from "../../../constants";
 
 export const RRRCalc: React.FC = () => {
     const [entryPrice, setEntryPrice] = useState<string>("");
@@ -27,9 +28,10 @@ export const RRRCalc: React.FC = () => {
         }
 
         const risk = Math.abs(entry - stopLoss);
-        const reward = Math.abs(takeProfit - entry);
+        const reward = Math.abs(takeProfit - entry - (2 * transactionFee));
 
-        setRiskRewardRatio(reward / risk);
+        setRiskRewardRatio((reward / risk));
+        console.log(riskRewardRatio)
         setError("");
     };
 
@@ -59,7 +61,7 @@ export const RRRCalc: React.FC = () => {
                 <Grid container justifyContent="space-between" alignItems="center">
                     <Grid>
                         <Typography variant="body1">
-                            Risk Reward Ratio:
+                            Risk Reward Ratio (Fees Included) :
                         </Typography>
                     </Grid>
                     <Grid>
