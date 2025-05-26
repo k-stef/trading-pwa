@@ -7,19 +7,23 @@ interface RRRPriceInputProps {
     entryPrice: string;
     stopLossPrice: string;
     takeProfitPrice: string;
+    quantity: string;
     setEntryPrice: (v: string) => void;
     setStopLossPrice: (v: string) => void;
     setTakeProfitPrice: (v: string) => void;
+    setQuantity: (v: string) => void;
 }
 
-export const RatioPriceInput: React.FC<RRRPriceInputProps> =
+export const RatioInput: React.FC<RRRPriceInputProps> =
     ({
          entryPrice,
          stopLossPrice,
          takeProfitPrice,
+         quantity,
          setEntryPrice,
          setStopLossPrice,
          setTakeProfitPrice,
+         setQuantity
      }) => (
         <Grid container spacing={2} direction="column">
             <Grid>
@@ -44,6 +48,20 @@ export const RatioPriceInput: React.FC<RRRPriceInputProps> =
                         onChange={(e) => setTakeProfitPrice(e.target.value)}
                     />
                 </Grid>
+            </Grid>
+            <Grid size={{xs: 12}}>
+                <TextField
+                    label="Quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value.replace(/\D/g, ""))}
+                    type="number"
+                    slotProps={{
+                        htmlInput: {
+                            step: "1", min: "1"
+                        }
+                    }}
+                    fullWidth
+                />
             </Grid>
         </Grid>
     );

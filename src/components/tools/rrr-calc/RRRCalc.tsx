@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
-import {RatioPriceInput} from "./RatioPriceInput";
+import {RatioInput} from "./RatioInput";
 import {transactionFee} from "../../../constants";
 import {RatioOutput} from "./RatioOutput";
+import {RiskRewardOutput} from "./RiskRewardOutput";
 
 export const RRRCalc: React.FC = () => {
     const [entryPrice, setEntryPrice] = useState<string>("");
     const [stopLossPrice, setStopLossPrice] = useState<string>("");
     const [takeProfitPrice, setTakeProfitPrice] = useState<string>("");
     const [riskRewardRatio, setRiskRewardRatio] = useState<number | null>(null);
+    const [quantity, setQuantity] = useState<string>("1");
+
     const [error, setError] = useState<string>("");
 
     const calculateRRR = () => {
@@ -28,8 +31,8 @@ export const RRRCalc: React.FC = () => {
             return;
         }
 
-        const risk = Math.abs(entry - stopLoss);
-        const reward = Math.abs(takeProfit - entry - (2 * transactionFee));
+        const risk = calcRisk();
+        const reward = calcReward()
 
         setRiskRewardRatio((reward / risk));
         setError("");
@@ -37,19 +40,52 @@ export const RRRCalc: React.FC = () => {
 
     useEffect(() => {
         calculateRRR();
+    }, [entryPrice, stopLossPrice, takeProfitPrice, quantity]);
+
+    const calcRisk = (): number => {
+        return (Number(quantity) * Math.abs(parseFloat(entryPrice) - parseFloat(stopLossPrice))) + (2 * transactionFee);
+    }
+
+    const calcReward = (): number => {
+        return (Number(quantity) * Math.abs(parseFloat(takeProfitPrice) - parseFloat(entryPrice))) - (2 * transactionFee);
+    }
+
+    const calcRiskRatio = () => {
+        return (
+            calcRisk() / (parseFloat(entryPrice) * Number(quantity)) * 100).toFixed(2)
+    }
+
+    const calcRewardRatioBeforeTaxes = () => {
+        return (calcReward() / (parseFloat(entryPrice) * Number(quantity)) * 100).toFixed(2)
+    }
+
+    const calcRewardRatioAfterTaxes = () => {
+        return (calcReward() / (parseFloat(entryPrice) * Number(quantity)) * 100 * 0.75).toFixed(2)
+    }
+
+    useEffect(() => {
+        calculateRRR();
     }, [entryPrice, stopLossPrice, takeProfitPrice]);
 
     return (
-        <Grid container spacing={4} direction="column">
-            <RatioPriceInput
+        <Grid container spacing={2} direction="column">
+            <RatioInput
                 entryPrice={entryPrice}
                 stopLossPrice={stopLossPrice}
                 takeProfitPrice={takeProfitPrice}
+                quantity={quantity}
                 setEntryPrice={setEntryPrice}
                 setStopLossPrice={setStopLossPrice}
                 setTakeProfitPrice={setTakeProfitPrice}
+                setQuantity={setQuantity}
             />
             <RatioOutput error={error} riskRewardRatio={riskRewardRatio}/>
+            <RiskRewardOutput
+                calcRisk={calcRisk()}
+                calcReward={calcReward()}
+                calcRiskRatio={calcRiskRatio()}
+                calcRewardRatioBeforeTaxes={calcRewardRatioBeforeTaxes()}
+                calcRewardRatioAfterTaxes={calcRewardRatioAfterTaxes()}/>
         </Grid>
     );
 };
