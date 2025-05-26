@@ -12,7 +12,7 @@ interface RRRPriceInputProps {
     setTakeProfitPrice: (v: string) => void;
 }
 
-export const RRRPriceInput: React.FC<RRRPriceInputProps> =
+export const RatioPriceInput: React.FC<RRRPriceInputProps> =
     ({
          entryPrice,
          stopLossPrice,
