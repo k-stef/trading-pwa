@@ -24,7 +24,7 @@ export const RatioOutput: React.FC<RatioOutputProps> = ({error, riskRewardRatio}
                     </Grid>
                     <Grid>
                         {riskRewardRatio ? (
-                            <Typography variant="body1">
+                            <Typography variant="body1" color={riskRewardRatio > 3 ? "success" : "error"}>
                                 {riskRewardRatio.toFixed(2)}
                             </Typography>
                         ) : (

@@ -26,7 +26,7 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
-                                <Typography variant="body1">{calcRisk.toFixed(2)} €</Typography>
+                                <Typography variant="body1" style={{width: "50px"}}>{calcRisk.toFixed(2)} €</Typography>
                             </Grid>
                             <Grid>
                                 <Typography variant="body1">{calcRiskRatio} %</Typography>
@@ -43,7 +43,7 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
-                                <Typography variant="body1">{calcReward.toFixed(2)} €</Typography>
+                                <Typography variant="body1" style={{width: "50px"}}>{calcReward.toFixed(2)} €</Typography>
                             </Grid>
                             <Grid>
                                 <Typography variant="body1">{calcRewardRatioBeforeTaxes} %</Typography>
@@ -60,7 +60,7 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
-                                <Typography variant="body1">{(calcReward * 0.75).toFixed(2)} €</Typography>
+                                <Typography variant="body1" style={{width: "50px"}}>{(calcReward * 0.75).toFixed(2)} €</Typography>
                             </Grid>
                             <Grid>
                                 <Typography variant="body1">{calcRewardRatioAfterTaxes} %</Typography>

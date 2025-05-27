@@ -40,7 +40,7 @@ const ReturnBeforeTaxes: React.FC<{
             <Grid size={{xs: 6}} display={"flex"} flexDirection={"row"} justifyContent={"flex-end"}>
                 {valid ? (
                     <>
-                        <Typography variant="subtitle1">
+                        <Typography variant="subtitle1" style={{width: "50px"}}>
                             {returnEuroBeforeTaxes?.toFixed(2)} €
                         </Typography>
                         <Box mx={1}></Box>
@@ -71,7 +71,7 @@ const ReturnAfterTaxes: React.FC<{
             <Grid size={{xs: 6}} display={"flex"} flexDirection={"row"} justifyContent={"flex-end"}>
                 {valid && returnEuroAfterTaxes !== undefined && (returnEuroAfterTaxes > 0) ? (
                     <>
-                        <Typography variant="subtitle1">
+                        <Typography variant="subtitle1" style={{width: "50px"}}>
                             {returnEuroAfterTaxes?.toFixed(2)} €
                         </Typography>
                         <Box mx={1}></Box>
