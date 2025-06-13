@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, TextField} from "@mui/material";
+import {BuyInputFields} from "./BuyInputFields";
+import {SellInputFields} from "./SellInputFields";
 
 type PriceInputFieldsProps = {
     buy: string;
@@ -22,68 +23,26 @@ export const PriceInputFields: React.FC<PriceInputFieldsProps> =
          onBuyQtyChange,
          onSellChange,
          onSellQtyChange
-     }: PriceInputFieldsProps) => (
-        <>
-            <Grid container marginBottom={2} spacing={2}>
-                <Grid size={{xs: 8}}>
-                    <TextField
-                        label="Buy Price (€)"
-                        value={buy}
-                        onChange={(e) => onBuyChange(e.target.value)}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                step: "0.01", min: "0"
-                            }
-                        }}
-                        fullWidth
-                    />
-                </Grid>
-                <Grid size={{xs: 4}}>
-                    <TextField
-                        label="Buy Quantity"
-                        value={buyQty}
-                        onChange={(e) => {
-                            onBuyQtyChange(e.target.value.replace(/\D/g, ""))
-                            onSellQtyChange(e.target.value.replace(/\D/g, ""))
-                        }}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                step: "1", min: "1"
-                            }
-                        }}
-                        fullWidth
-                    />
-                </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid size={{xs: 8}}>
-                    <TextField
-                        label="Sell Price (€)"
-                        value={sell}
-                        onChange={(e) => onSellChange(e.target.value)}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                step: "0.01", min: "0"
-                            }
-                        }} fullWidth
-                    />
-                </Grid>
-                <Grid size={{xs: 4}}>
-                    <TextField
-                        label="Sell Quantity"
-                        value={sellQty}
-                        onChange={(e) => onSellQtyChange(e.target.value.replace(/\D/g, ""))}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                step: "1", min: "1"
-                            }
-                        }} fullWidth
-                    />
-                </Grid>
-            </Grid>
-        </>
-    );
+     }: PriceInputFieldsProps) => {
+        const handleBuyQtyChange = (v: string) => {
+            onBuyQtyChange(v);
+            onSellQtyChange(v);
+        };
+
+        return (
+            <>
+                <BuyInputFields
+                    buy={buy}
+                    buyQty={buyQty}
+                    onBuyChange={onBuyChange}
+                    onBuyQtyChange={handleBuyQtyChange}
+                />
+                <SellInputFields
+                    sell={sell}
+                    sellQty={sellQty}
+                    onSellChange={onSellChange}
+                    onSellQtyChange={onSellQtyChange}
+                />
+            </>
+        )
+    };

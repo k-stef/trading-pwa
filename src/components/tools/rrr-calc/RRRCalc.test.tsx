@@ -57,56 +57,56 @@ describe('RRRCalc Component', () => {
         test('calculates RRR correctly', () => {
             setup('10', '8', '14', '1');
 
-            expect(screen.getByText(/0\.50/i)).toBeInTheDocument();
+            expect(screen.getByText(/0.50/i)).toBeInTheDocument();
         });
 
         test('calculates risk correctly', () => {
             setup('10', '8', '14', '1');
 
-            expect(screen.getByText(/4 €/i)).toBeInTheDocument();
-            expect(screen.getByText(/40\.00 %/i)).toBeInTheDocument();
+            expect(screen.getByText(/4.00 €/i)).toBeInTheDocument();
+            expect(screen.getByText(/40.00 %/i)).toBeInTheDocument();
         });
 
         test('calculates reward before taxes correctly', () => {
             setup('10', '8', '14', '1');
 
-            expect(screen.getByText(/2 €/i)).toBeInTheDocument();
-            expect(screen.getByText(/20\.00 %/i)).toBeInTheDocument();
+            expect(screen.getByText(/2.00 €/i)).toBeInTheDocument();
+            expect(screen.getByText(/20.00 %/i)).toBeInTheDocument();
         });
 
         test('calculates reward after taxes correctly', () => {
             setup('10', '8', '14', '1');
 
-            expect(screen.getByText(/1\.5 €/i)).toBeInTheDocument();
-            expect(screen.getByText(/15\.00 %/i)).toBeInTheDocument();
+            expect(screen.getByText(/1.50 €/i)).toBeInTheDocument();
+            expect(screen.getByText(/15.00 %/i)).toBeInTheDocument();
         });
     })
     describe("for quantity = 2", () => {
         test('calculates RRR correctly', () => {
             setup('10', '8', '14', '2');
 
-            expect(screen.getByText(/1\.00/i)).toBeInTheDocument();
+            expect(screen.getByText(/1.00/i)).toBeInTheDocument();
         });
 
         test('calculates risk correctly', () => {
             setup('10', '8', '14', '2');
 
-            expect(screen.getAllByText(/6 €/i)).toHaveLength(2)
-            expect(screen.getAllByText(/30\.00 %/i)).toHaveLength(2)
+            expect(screen.getAllByText(/6.00 €/i)).toHaveLength(2)
+            expect(screen.getAllByText(/30.00 %/i)).toHaveLength(2)
         });
 
         test('calculates reward before taxes correctly', () => {
             setup('10', '8', '14', '2');
 
-            expect(screen.getAllByText(/6 €/i)).toHaveLength(2)
-            expect(screen.getAllByText(/30\.00 %/i)).toHaveLength(2)
+            expect(screen.getAllByText(/6.00 €/i)).toHaveLength(2)
+            expect(screen.getAllByText(/30.00 %/i)).toHaveLength(2)
         });
 
         test('calculates reward after taxes correctly', () => {
             setup('10', '8', '14', '2');
 
-            expect(screen.getByText(/4\.5 €/i)).toBeInTheDocument();
-            expect(screen.getByText(/22\.50 %/i)).toBeInTheDocument();
+            expect(screen.getByText(/4.50 €/i)).toBeInTheDocument();
+            expect(screen.getByText(/22.50 %/i)).toBeInTheDocument();
         });
     })
 
