@@ -1,11 +1,17 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { svelte } from "@sveltejs/vite-plugin-svelte"; // Import the named export
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   base: "/trading-pwa/",
   plugins: [
-    react(),
+    svelte({
+      compilerOptions: {
+        compatibility: {
+          componentApi: 4
+        }
+      }
+    }), // Ensure this is the correct import
     VitePWA({
       registerType: "autoUpdate",
       filename: "service-worker.js",
