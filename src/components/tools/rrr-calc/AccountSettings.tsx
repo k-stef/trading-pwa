@@ -32,10 +32,10 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
     return (
         <Grid container spacing={2} direction="column">
             <Grid>
-                <Box sx={{px: 2}}>
-                    <Typography gutterBottom>
-                        Account Size: €{accountSize.toLocaleString('de-DE')}
-                    </Typography>
+                <Typography gutterBottom>
+                    Account Size: €{accountSize.toLocaleString('de-DE')}
+                </Typography>
+                <Box sx={{px: 1.5}}>
                     <Slider
                         value={accountSize}
                         onChange={(_, value) => onAccountSizeChange(value as number)}
@@ -49,10 +49,10 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                 </Box>
             </Grid>
             <Grid>
-                <Box sx={{px: 2}}>
-                    <Typography gutterBottom>
-                        Risk per Trade: {riskPercentage.toFixed(2)}% (€{Math.round(accountSize * (riskPercentage / 100)).toLocaleString('de-DE')})
-                    </Typography>
+                <Typography gutterBottom>
+                    Max Risk per Trade: {riskPercentage.toFixed(2)}% (€{Math.round(accountSize * (riskPercentage / 100)).toLocaleString('de-DE')})
+                </Typography>
+                <Box sx={{px: 1.5}}>
                     <Slider
                         value={riskPercentage}
                         onChange={(_, value) => onRiskPercentageChange(value as number)}

@@ -56,7 +56,7 @@ export const PositionSizeDisplay: React.FC<PositionSizeDisplayProps> = ({
             )}
 
             {/* Risk/Reward Ratio - nur anzeigen wenn ein gültiger Wert vorhanden ist */}
-            {riskRewardRatio !== null && riskRewardRatio !== undefined && !Number.isNaN(riskRewardRatio) && riskRewardRatio !== 0 && (
+            {riskRewardRatio !== null && riskRewardRatio !== undefined && !Number.isNaN(riskRewardRatio) && riskRewardRatio > 0 && (
                 <Grid container justifyContent="space-between" alignItems="center" sx={{mb: 1}}>
                     <Grid>
                         <Typography variant="body1">

@@ -16,22 +16,20 @@ export const RatioOutput: React.FC<RatioOutputProps> = ({error, riskRewardRatio}
                     </Typography>
                 </Grid>
             ) : (
-                <Grid container justifyContent="space-between" alignItems="center">
-                    <Grid>
-                        <Typography variant="body1">
-                            Risk Reward Ratio (Fees Included) :
-                        </Typography>
-                    </Grid>
-                    <Grid>
-                        {riskRewardRatio ? (
+                riskRewardRatio !== null && riskRewardRatio !== undefined && !Number.isNaN(riskRewardRatio) && riskRewardRatio > 0 && (
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        <Grid>
+                            <Typography variant="body1">
+                                Risk Reward Ratio (Fees Included) :
+                            </Typography>
+                        </Grid>
+                        <Grid>
                             <Typography variant="body1" color={riskRewardRatio > 3 ? "success" : "error"}>
                                 {riskRewardRatio.toFixed(2)}
                             </Typography>
-                        ) : (
-                            "-"
-                        )}
+                        </Grid>
                     </Grid>
-                </Grid>
+                )
             )}
         </>
     );
