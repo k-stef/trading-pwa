@@ -158,11 +158,9 @@ const RiskManager: React.FC = () => {
           entryPrice={entryPrice}
           stopLossPrice={stopLossPrice}
           takeProfitPrice={takeProfitPrice}
-          quantity=""
           setEntryPrice={setEntryPrice}
           setStopLossPrice={setStopLossPrice}
           setTakeProfitPrice={setTakeProfitPrice}
-          setQuantity={() => {}}
         />
       </Grid>
 
