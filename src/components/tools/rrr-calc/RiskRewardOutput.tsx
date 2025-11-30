@@ -18,11 +18,12 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
          calcRewardRatioAfterTaxes
      }) => (
         <>
-            <Grid container justifyContent="space-between">
-                <Grid>
-                    <Typography variant="body1">Risk:</Typography>
-                </Grid>
-                {calcRisk && calcRiskRatio ? (
+            {/* Risk - nur anzeigen wenn Wert vorhanden */}
+            {calcRisk > 0 && calcRiskRatio !== "0.00" && (
+                <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Grid>
+                        <Typography variant="body1">Risk:</Typography>
+                    </Grid>
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
@@ -33,13 +34,15 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                             </Grid>
                         </Grid>
                     </Grid>
-                ) : "-"}
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Grid>
-                    <Typography variant="body1">Reward Before Taxes:</Typography>
                 </Grid>
-                {calcReward && calcRewardRatioBeforeTaxes ? (
+            )}
+
+            {/* Reward Before Taxes - nur anzeigen wenn Wert vorhanden */}
+            {calcReward > 0 && calcRewardRatioBeforeTaxes !== "0.00" && (
+                <Grid container justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Grid>
+                        <Typography variant="body1">Reward Before Taxes:</Typography>
+                    </Grid>
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
@@ -50,13 +53,15 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                             </Grid>
                         </Grid>
                     </Grid>
-                ) : "-"}
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Grid>
-                    <Typography variant="body1">Reward After Taxes:</Typography>
                 </Grid>
-                {calcReward && calcRewardRatioAfterTaxes ? (
+            )}
+
+            {/* Reward After Taxes - nur anzeigen wenn Wert vorhanden */}
+            {calcReward > 0 && calcRewardRatioAfterTaxes !== "0.00" && (
+                <Grid container justifyContent="space-between">
+                    <Grid>
+                        <Typography variant="body1">Reward After Taxes:</Typography>
+                    </Grid>
                     <Grid>
                         <Grid container spacing={2}>
                             <Grid>
@@ -67,7 +72,7 @@ export const RiskRewardOutput: React.FC<RiskRewardOutputProps> =
                             </Grid>
                         </Grid>
                     </Grid>
-                ) : "-"}
-            </Grid>
+                </Grid>
+            )}
         </>
     )
