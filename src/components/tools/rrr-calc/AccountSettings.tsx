@@ -51,7 +51,7 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
             <Grid>
                 <Box sx={{px: 2}}>
                     <Typography gutterBottom>
-                        Risk per Trade: {riskPercentage.toFixed(2)}%
+                        Risk per Trade: {riskPercentage.toFixed(2)}% (€{Math.round(accountSize * (riskPercentage / 100)).toLocaleString('de-DE')})
                     </Typography>
                     <Slider
                         value={riskPercentage}
