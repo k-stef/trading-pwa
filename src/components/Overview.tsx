@@ -10,7 +10,7 @@ export type Tool = {
 
 export const tools: Tool[] = [
     {id: 1, name: "Return Calculator"},
-    {id: 2, name: "RRR Calculator"},
+    {id: 2, name: "Risk Manager"},
     {id: 3, name: "Tool 3"},
 ];
 

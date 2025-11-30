@@ -65,7 +65,7 @@ const calculateRewardAmount = (
   return Math.abs(takeProfit - entry) * result.maxQuantity - result.totalFees;
 };
 
-export const RiskManager: React.FC = () => {
+const RiskManager: React.FC = () => {
   // State Management
   const [accountSize, setAccountSize] = useState<number>(10000);
   const [riskPercentage, setRiskPercentage] = useState<number>(1.0);
@@ -212,3 +212,5 @@ export const RiskManager: React.FC = () => {
     </Grid>
   );
 };
+
+export default RiskManager;
