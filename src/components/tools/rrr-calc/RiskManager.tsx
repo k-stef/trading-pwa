@@ -77,6 +77,13 @@ const RiskManager: React.FC = () => {
 
   // Real-time calculations
   useEffect(() => {
+    // Skip validation if required fields are empty (initial state)
+    if (!entryPrice || !stopLossPrice) {
+      setValidationErrors([]);
+      setCalculationResult(null);
+      return;
+    }
+
     const entry = Number.parseFloat(entryPrice);
     const stopLoss = Number.parseFloat(stopLossPrice);
     const takeProfit = Number.parseFloat(takeProfitPrice);
