@@ -4,7 +4,7 @@ import {Box, Button, Container, Typography} from "@mui/material";
 import ReturnCalc from "./return-calc/ReturnCalc";
 import {tools} from "../Overview";
 import {ArrowBackIosNew} from "@mui/icons-material";
-import RiskManager from "./rrr-calc/RiskManager";
+import RiskManager from "./risk-manager/RiskManager";
 
 const ToolPage: React.FC = () => {
     const {toolId} = useParams<{ toolId: string }>();
