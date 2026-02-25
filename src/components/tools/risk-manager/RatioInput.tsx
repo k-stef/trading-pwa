@@ -80,32 +80,41 @@ interface PriceInputProps {
     onClear: () => void;
 }
 
-export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange, onClear}) => (
-    <TextField
-        label={label}
-        value={value}
-        onChange={onChange}
-        type="number"
-        slotProps={{
-            htmlInput: {
-                step: "0.01", min: "0"
-            },
-            input: {
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton
-                            size="small"
-                            onClick={onClear}
-                            edge="end"
-                            aria-label="clear"
-                            sx={{ visibility: value ? 'visible' : 'hidden' }}
-                        >
-                            <ClearIcon fontSize="small" />
-                        </IconButton>
-                    </InputAdornment>
-                )
-            }
-        }}
-        fullWidth
-    />
-);
+export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange, onClear}) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+
+    return (
+        <TextField
+            label={label}
+            value={value}
+            onChange={onChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            type="number"
+            slotProps={{
+                htmlInput: {
+                    step: "0.01", min: "0"
+                },
+                inputLabel: {
+                    shrink: isFocused || !!value
+                },
+                input: {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            <IconButton
+                                size="small"
+                                onClick={onClear}
+                                edge="end"
+                                aria-label="clear"
+                                sx={{ visibility: value ? 'visible' : 'hidden' }}
+                            >
+                                <ClearIcon fontSize="small" />
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }
+            }}
+            fullWidth
+        />
+    );
+};
