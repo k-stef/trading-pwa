@@ -4,6 +4,9 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   base: "/trading-pwa/",
+  build: {
+    outDir: "docs",
+  },
   plugins: [
     react(),
     VitePWA({
