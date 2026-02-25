@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Grid, Slider, Typography} from '@mui/material';
 
 interface AccountSettingsProps {
@@ -31,16 +31,30 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                                                                     onAccountSizeChange,
                                                                     onRiskPercentageChange,
                                                                 }) => {
+    // Local state for smooth dragging on mobile
+    const [localAccountSize, setLocalAccountSize] = useState(accountSize);
+    const [localRiskPercentage, setLocalRiskPercentage] = useState(riskPercentage);
+
+    // Update local state when props change
+    React.useEffect(() => {
+        setLocalAccountSize(accountSize);
+    }, [accountSize]);
+
+    React.useEffect(() => {
+        setLocalRiskPercentage(riskPercentage);
+    }, [riskPercentage]);
+
     return (
         <Grid container spacing={2} direction="column">
             <Grid>
                 <Typography gutterBottom>
-                    Account Size: €{accountSize.toLocaleString('de-DE')}
+                    Account Size: €{localAccountSize.toLocaleString('de-DE')}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={accountSize}
-                        onChange={(_, value) => onAccountSizeChange(value as number)}
+                        value={localAccountSize}
+                        onChange={(_, value) => setLocalAccountSize(value as number)}
+                        onChangeCommitted={(_, value) => onAccountSizeChange(value as number)}
                         min={1000}
                         max={20000}
                         step={100}
@@ -52,12 +66,13 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Max Risk per Trade: {riskPercentage.toFixed(2)}% (€{Math.round(accountSize * (riskPercentage / 100)).toLocaleString('de-DE')})
+                    Max Risk per Trade: {localRiskPercentage.toFixed(2)}% (€{Math.round(accountSize * (localRiskPercentage / 100)).toLocaleString('de-DE')})
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={riskPercentage}
-                        onChange={(_, value) => onRiskPercentageChange(value as number)}
+                        value={localRiskPercentage}
+                        onChange={(_, value) => setLocalRiskPercentage(value as number)}
+                        onChangeCommitted={(_, value) => onRiskPercentageChange(value as number)}
                         min={0.1}
                         max={3}
                         step={0.05}
