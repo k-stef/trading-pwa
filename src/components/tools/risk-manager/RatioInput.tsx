@@ -96,9 +96,15 @@ export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange, o
                     step: "0.01", min: "0"
                 },
                 inputLabel: {
-                    shrink: isFocused || !!value
+                    shrink: isFocused || !!value,
+                    sx: {
+                        backgroundColor: '#181818',
+                        paddingX: '4px',
+                        marginX: '-4px'
+                    }
                 },
                 input: {
+                    notched: false,
                     endAdornment: (
                         <InputAdornment position="end">
                             <IconButton

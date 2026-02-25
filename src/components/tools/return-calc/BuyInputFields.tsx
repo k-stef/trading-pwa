@@ -35,9 +35,15 @@ export const BuyInputFields: React.FC<BuyInputFieldsProps> =
                                 min: "0"
                             },
                             inputLabel: {
-                                shrink: isBuyFocused || !!buy
+                                shrink: isBuyFocused || !!buy,
+                                sx: {
+                                    backgroundColor: '#181818',
+                                    paddingX: '4px',
+                                    marginX: '-4px'
+                                }
                             },
                             input: {
+                                notched: false,
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
@@ -72,7 +78,15 @@ export const BuyInputFields: React.FC<BuyInputFieldsProps> =
                                 min: "1"
                             },
                             inputLabel: {
-                                shrink: isBuyQtyFocused || !!buyQty
+                                shrink: isBuyQtyFocused || !!buyQty,
+                                sx: {
+                                    backgroundColor: '#181818',
+                                    paddingX: '4px',
+                                    marginX: '-4px'
+                                }
+                            },
+                            input: {
+                                notched: false
                             }
                         }}
                         fullWidth

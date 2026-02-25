@@ -35,9 +35,15 @@ export const SellInputFields: React.FC<SellInputFieldsProps> =
                                 min: "0"
                             },
                             inputLabel: {
-                                shrink: isSellFocused || !!sell
+                                shrink: isSellFocused || !!sell,
+                                sx: {
+                                    backgroundColor: '#181818',
+                                    paddingX: '4px',
+                                    marginX: '-4px'
+                                }
                             },
                             input: {
+                                notched: false,
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
@@ -72,7 +78,15 @@ export const SellInputFields: React.FC<SellInputFieldsProps> =
                                 min: "1"
                             },
                             inputLabel: {
-                                shrink: isSellQtyFocused || !!sellQty
+                                shrink: isSellQtyFocused || !!sellQty,
+                                sx: {
+                                    backgroundColor: '#181818',
+                                    paddingX: '4px',
+                                    marginX: '-4px'
+                                }
+                            },
+                            input: {
+                                notched: false
                             }
                         }}
                         fullWidth
