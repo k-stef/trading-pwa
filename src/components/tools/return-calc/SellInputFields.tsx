@@ -29,18 +29,19 @@ export const SellInputFields: React.FC<SellInputFieldsProps> =
                             min: "0"
                         },
                         input: {
-                            endAdornment: sell ? (
+                            endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
                                         size="small"
                                         onClick={() => onSellChange("")}
                                         edge="end"
                                         aria-label="clear"
+                                        sx={{ visibility: sell ? 'visible' : 'hidden' }}
                                     >
                                         <ClearIcon fontSize="small" />
                                     </IconButton>
                                 </InputAdornment>
-                            ) : null
+                            )
                         }
                     }}
                     fullWidth

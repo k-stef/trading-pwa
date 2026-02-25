@@ -91,18 +91,19 @@ export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange, o
                 step: "0.01", min: "0"
             },
             input: {
-                endAdornment: value ? (
+                endAdornment: (
                     <InputAdornment position="end">
                         <IconButton
                             size="small"
                             onClick={onClear}
                             edge="end"
                             aria-label="clear"
+                            sx={{ visibility: value ? 'visible' : 'hidden' }}
                         >
                             <ClearIcon fontSize="small" />
                         </IconButton>
                     </InputAdornment>
-                ) : null
+                )
             }
         }}
         fullWidth

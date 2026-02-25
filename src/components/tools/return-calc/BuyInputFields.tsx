@@ -29,18 +29,19 @@ export const BuyInputFields: React.FC<BuyInputFieldsProps> =
                             min: "0"
                         },
                         input: {
-                            endAdornment: buy ? (
+                            endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
                                         size="small"
                                         onClick={() => onBuyChange("")}
                                         edge="end"
                                         aria-label="clear"
+                                        sx={{ visibility: buy ? 'visible' : 'hidden' }}
                                     >
                                         <ClearIcon fontSize="small" />
                                     </IconButton>
                                 </InputAdornment>
-                            ) : null
+                            )
                         }
                     }}
                     fullWidth
