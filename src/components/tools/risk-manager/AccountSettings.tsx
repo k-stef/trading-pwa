@@ -33,15 +33,20 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
     // Local state for smooth dragging on mobile
     const [localAccountSize, setLocalAccountSize] = useState(accountSize);
     const [localRiskPercentage, setLocalRiskPercentage] = useState(riskPercentage);
+    const [isDragging, setIsDragging] = useState(false);
 
-    // Update local state when props change
+    // Update local state when props change (but not while dragging)
     React.useEffect(() => {
-        setLocalAccountSize(accountSize);
-    }, [accountSize]);
+        if (!isDragging) {
+            setLocalAccountSize(accountSize);
+        }
+    }, [accountSize, isDragging]);
 
     React.useEffect(() => {
-        setLocalRiskPercentage(riskPercentage);
-    }, [riskPercentage]);
+        if (!isDragging) {
+            setLocalRiskPercentage(riskPercentage);
+        }
+    }, [riskPercentage, isDragging]);
 
     return (
         <Grid container spacing={2} direction="column">
@@ -52,8 +57,14 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                 <Box sx={{px: 1.5}}>
                     <Slider
                         value={localAccountSize}
-                        onChange={(_, value) => setLocalAccountSize(value as number)}
-                        onChangeCommitted={(_, value) => onAccountSizeChange(value as number)}
+                        onChange={(_, value) => {
+                            setIsDragging(true);
+                            setLocalAccountSize(value as number);
+                        }}
+                        onChangeCommitted={(_, value) => {
+                            setIsDragging(false);
+                            onAccountSizeChange(value as number);
+                        }}
                         min={1000}
                         max={20000}
                         step={100}
@@ -70,8 +81,14 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                 <Box sx={{px: 1.5}}>
                     <Slider
                         value={localRiskPercentage}
-                        onChange={(_, value) => setLocalRiskPercentage(value as number)}
-                        onChangeCommitted={(_, value) => onRiskPercentageChange(value as number)}
+                        onChange={(_, value) => {
+                            setIsDragging(true);
+                            setLocalRiskPercentage(value as number);
+                        }}
+                        onChangeCommitted={(_, value) => {
+                            setIsDragging(false);
+                            onRiskPercentageChange(value as number);
+                        }}
                         min={0.1}
                         max={3}
                         step={0.05}
