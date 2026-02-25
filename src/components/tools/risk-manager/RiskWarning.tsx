@@ -6,7 +6,7 @@ interface RiskWarningProps {
   riskPercentage: number;
 }
 
-const RECOMMENDED_RISK_LIMIT = 1;
+const RECOMMENDED_RISK_LIMIT = 0.5;
 
 export const RiskWarning: React.FC<RiskWarningProps> = ({ riskPercentage }) => {
   if (riskPercentage <= RECOMMENDED_RISK_LIMIT) {

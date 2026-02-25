@@ -67,7 +67,7 @@ const calculateRewardAmount = (
 const RiskManager: React.FC = () => {
     // State Management
     const [accountSize, setAccountSize] = useState<number>(10000);
-    const [riskPercentage, setRiskPercentage] = useState<number>(1.0);
+    const [riskPercentage, setRiskPercentage] = useState<number>(0.25);
     const [entryPrice, setEntryPrice] = useState<string>("");
     const [stopLossPrice, setStopLossPrice] = useState<string>("");
     const [takeProfitPrice, setTakeProfitPrice] = useState<string>("");

@@ -9,10 +9,12 @@ interface AccountSettingsProps {
 }
 
 const riskMarks = [
+    {value: 0.1, label: '0.1%'},
+    {value: 0.25, label: '0.25%'},
     {value: 0.5, label: '0.5%'},
     {value: 1, label: '1%'},
     {value: 2, label: '2%'},
-    {value: 5, label: '5%'},
+    {value: 3, label: '3%'},
 ];
 
 const accountSizeMarks = [
@@ -56,9 +58,9 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                     <Slider
                         value={riskPercentage}
                         onChange={(_, value) => onRiskPercentageChange(value as number)}
-                        min={0.5}
-                        max={5}
-                        step={0.1}
+                        min={0.1}
+                        max={3}
+                        step={0.05}
                         marks={riskMarks}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `${value}%`}

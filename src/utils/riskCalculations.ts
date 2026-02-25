@@ -13,9 +13,9 @@ import type { RiskCalculationResult } from '../types/riskManager';
 export const RISK_CONFIG = {
   transactionFee: 1.0,
   taxRate: 0.25,
-  minRiskPercentage: 0.5,
-  maxRiskPercentage: 5.0,
-  riskWarningThreshold: 2.0,
+  minRiskPercentage: 0.1,
+  maxRiskPercentage: 3.0,
+  riskWarningThreshold: 0.5,
 } as const;
 
 /**
@@ -29,7 +29,7 @@ export const RISK_CONFIG = {
  * 5. Round down to whole number: Math.floor(quantity)
  * 
  * @param accountBalance - Total account balance in EUR
- * @param riskPercentage - Desired risk percentage (0.5 - 5.0)
+ * @param riskPercentage - Desired risk percentage (0.1 - 3.0)
  * @param entryPrice - Entry price per unit
  * @param stopLossPrice - Stop-loss price per unit
  * @returns Maximum quantity (rounded down to whole number)
@@ -67,7 +67,7 @@ export function calculateMaxQuantity(
  * Formula: accountBalance * (riskPercentage / 100)
  * 
  * @param accountBalance - Total account balance in EUR
- * @param riskPercentage - Desired risk percentage (0.5 - 5.0)
+ * @param riskPercentage - Desired risk percentage (0.1 - 3.0)
  * @returns Risk amount in EUR
  */
 export function calculateRiskAmount(
@@ -135,7 +135,7 @@ export function isHighRisk(riskPercentage: number): boolean {
  * Perform complete risk calculation and return all relevant metrics.
  * 
  * @param accountBalance - Total account balance in EUR
- * @param riskPercentage - Desired risk percentage (0.5 - 5.0)
+ * @param riskPercentage - Desired risk percentage (0.1 - 3.0)
  * @param entryPrice - Entry price per unit
  * @param stopLossPrice - Stop-loss price per unit
  * @returns Complete risk calculation result
