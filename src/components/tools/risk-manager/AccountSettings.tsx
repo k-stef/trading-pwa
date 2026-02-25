@@ -10,7 +10,6 @@ interface AccountSettingsProps {
 
 const riskMarks = [
     {value: 0.1, label: '0.1%'},
-    {value: 0.25, label: '0.25%'},
     {value: 0.5, label: '0.5%'},
     {value: 1, label: '1%'},
     {value: 2, label: '2%'},
