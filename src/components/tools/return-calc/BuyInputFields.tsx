@@ -1,5 +1,6 @@
-import {Grid, TextField} from "@mui/material";
+import {Grid, IconButton, InputAdornment, TextField} from "@mui/material";
 import React from "react";
+import ClearIcon from '@mui/icons-material/Clear';
 
 type BuyInputFieldsProps = {
     buy: string;
@@ -26,6 +27,20 @@ export const BuyInputFields: React.FC<BuyInputFieldsProps> =
                         htmlInput: {
                             step: "0.01",
                             min: "0"
+                        },
+                        input: {
+                            endAdornment: buy ? (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        size="small"
+                                        onClick={() => onBuyChange("")}
+                                        edge="end"
+                                        aria-label="clear"
+                                    >
+                                        <ClearIcon fontSize="small" />
+                                    </IconButton>
+                                </InputAdornment>
+                            ) : null
                         }
                     }}
                     fullWidth

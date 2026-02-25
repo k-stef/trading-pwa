@@ -1,5 +1,6 @@
 import React from "react";
-import {Grid, TextField} from "@mui/material";
+import {Grid, IconButton, InputAdornment, TextField} from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 
 type SellInputFieldsProps = {
     sell: string;
@@ -26,6 +27,20 @@ export const SellInputFields: React.FC<SellInputFieldsProps> =
                         htmlInput: {
                             step: "0.01",
                             min: "0"
+                        },
+                        input: {
+                            endAdornment: sell ? (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        size="small"
+                                        onClick={() => onSellChange("")}
+                                        edge="end"
+                                        aria-label="clear"
+                                    >
+                                        <ClearIcon fontSize="small" />
+                                    </IconButton>
+                                </InputAdornment>
+                            ) : null
                         }
                     }}
                     fullWidth

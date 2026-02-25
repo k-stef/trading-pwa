@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import {Grid} from "@mui/material";
+import {Grid, IconButton, InputAdornment} from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 interface RRRPriceInputProps {
@@ -31,6 +32,7 @@ export const RatioInput: React.FC<RRRPriceInputProps> =
                     label="Entry Price"
                     value={entryPrice}
                     onChange={(e) => setEntryPrice(e.target.value)}
+                    onClear={() => setEntryPrice("")}
                 />
             </Grid>
             <Grid container spacing={2}>
@@ -39,6 +41,7 @@ export const RatioInput: React.FC<RRRPriceInputProps> =
                         label="Stop-Loss Price"
                         value={stopLossPrice}
                         onChange={(e) => setStopLossPrice(e.target.value)}
+                        onClear={() => setStopLossPrice("")}
                     />
                 </Grid>
                 <Grid size={{xs: 6}}>
@@ -46,6 +49,7 @@ export const RatioInput: React.FC<RRRPriceInputProps> =
                         label="Take-Profit Price"
                         value={takeProfitPrice}
                         onChange={(e) => setTakeProfitPrice(e.target.value)}
+                        onClear={() => setTakeProfitPrice("")}
                     />
                 </Grid>
             </Grid>
@@ -73,9 +77,10 @@ interface PriceInputProps {
     label: string;
     value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onClear: () => void;
 }
 
-export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange}) => (
+export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange, onClear}) => (
     <TextField
         label={label}
         value={value}
@@ -84,6 +89,20 @@ export const PriceInput: React.FC<PriceInputProps> = ({label, value, onChange}) 
         slotProps={{
             htmlInput: {
                 step: "0.01", min: "0"
+            },
+            input: {
+                endAdornment: value ? (
+                    <InputAdornment position="end">
+                        <IconButton
+                            size="small"
+                            onClick={onClear}
+                            edge="end"
+                            aria-label="clear"
+                        >
+                            <ClearIcon fontSize="small" />
+                        </IconButton>
+                    </InputAdornment>
+                ) : null
             }
         }}
         fullWidth
