@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, Grid, Slider, Typography} from '@mui/material';
 
 interface AccountSettingsProps {
@@ -25,44 +25,35 @@ const accountSizeMarks = [
 ];
 
 export const AccountSettings: React.FC<AccountSettingsProps> = ({
-                                                                    accountSize,
-                                                                    riskPercentage,
-                                                                    onAccountSizeChange,
-                                                                    onRiskPercentageChange,
-                                                                }) => {
-    // Local state for smooth dragging on mobile
-    const [localAccountSize, setLocalAccountSize] = useState(accountSize);
-    const [localRiskPercentage, setLocalRiskPercentage] = useState(riskPercentage);
-    const [isDragging, setIsDragging] = useState(false);
+    accountSize,
+    riskPercentage,
+    onAccountSizeChange,
+    onRiskPercentageChange,
+}) => {
+    const [displayAccountSize, setDisplayAccountSize] = React.useState(accountSize);
+    const [displayRiskPercentage, setDisplayRiskPercentage] = React.useState(riskPercentage);
 
-    // Update local state when props change (but not while dragging)
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalAccountSize(accountSize);
-        }
+        setDisplayAccountSize(accountSize);
     }, [accountSize]);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalRiskPercentage(riskPercentage);
-        }
+        setDisplayRiskPercentage(riskPercentage);
     }, [riskPercentage]);
 
     return (
         <Grid container spacing={2} direction="column">
             <Grid>
                 <Typography gutterBottom>
-                    Account Size: €{localAccountSize.toLocaleString('de-DE')}
+                    Account Size: €{displayAccountSize.toLocaleString('de-DE')}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={localAccountSize}
+                        value={accountSize}
                         onChange={(_, value) => {
-                            setIsDragging(true);
-                            setLocalAccountSize(value as number);
+                            setDisplayAccountSize(value as number);
                         }}
                         onChangeCommitted={(_, value) => {
-                            setIsDragging(false);
                             onAccountSizeChange(value as number);
                         }}
                         min={1000}
@@ -76,17 +67,15 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Max Risk per Trade: {localRiskPercentage.toFixed(2)}% (€{Math.round(accountSize * (localRiskPercentage / 100)).toLocaleString('de-DE')})
+                    Max Risk per Trade: {displayRiskPercentage.toFixed(2)}% (€{Math.round(accountSize * (displayRiskPercentage / 100)).toLocaleString('de-DE')})
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={localRiskPercentage}
+                        value={riskPercentage}
                         onChange={(_, value) => {
-                            setIsDragging(true);
-                            setLocalRiskPercentage(value as number);
+                            setDisplayRiskPercentage(value as number);
                         }}
                         onChangeCommitted={(_, value) => {
-                            setIsDragging(false);
                             onRiskPercentageChange(value as number);
                         }}
                         min={0.1}

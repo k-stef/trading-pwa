@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface NewPurchaseProps {
@@ -14,14 +14,11 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
     onSharesChange,
     onPriceChange,
 }) => {
-    const [localShares, setLocalShares] = useState(newShares);
-    const [isDragging, setIsDragging] = useState(false);
-    const [priceFocused, setPriceFocused] = useState(false);
+    const [displayValue, setDisplayValue] = React.useState(newShares);
+    const [priceFocused, setPriceFocused] = React.useState(false);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalShares(newShares);
-        }
+        setDisplayValue(newShares);
     }, [newShares]);
 
     const totalCost = newShares * Number.parseFloat(newPrice || '0') + 1;
@@ -35,17 +32,15 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Number of Shares: {localShares}
+                    Number of Shares: {displayValue}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={localShares}
+                        value={newShares}
                         onChange={(_, value) => {
-                            setIsDragging(true);
-                            setLocalShares(value as number);
+                            setDisplayValue(value as number);
                         }}
                         onChangeCommitted={(_, value) => {
-                            setIsDragging(false);
                             onSharesChange(value as number);
                         }}
                         min={1}

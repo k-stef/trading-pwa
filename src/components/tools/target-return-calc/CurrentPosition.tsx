@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface CurrentPositionProps {
@@ -14,14 +14,11 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
     onSharesChange,
     onBuyinChange,
 }) => {
-    const [localShares, setLocalShares] = useState(10);
-    const [isDragging, setIsDragging] = useState(false);
-    const [buyinFocused, setBuyinFocused] = useState(false);
+    const [displayValue, setDisplayValue] = React.useState(Number.parseInt(currentShares || '10', 10));
+    const [buyinFocused, setBuyinFocused] = React.useState(false);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalShares(Number.parseInt(currentShares || '0', 10));
-        }
+        setDisplayValue(Number.parseInt(currentShares || '10', 10));
     }, [currentShares]);
 
     return (
@@ -33,17 +30,15 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Number of Shares: {localShares}
+                    Number of Shares: {displayValue}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={localShares}
+                        value={Number.parseInt(currentShares || '10', 10)}
                         onChange={(_, value) => {
-                            setIsDragging(true);
-                            setLocalShares(value as number);
+                            setDisplayValue(value as number);
                         }}
                         onChangeCommitted={(_, value) => {
-                            setIsDragging(false);
                             onSharesChange((value as number).toString());
                         }}
                         min={1}
