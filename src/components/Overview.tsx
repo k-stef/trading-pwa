@@ -11,7 +11,7 @@ export type Tool = {
 export const tools: Tool[] = [
     {id: 1, name: "Return Calculator"},
     {id: 2, name: "Risk Manager"},
-    {id: 3, name: "Tool 3"},
+    {id: 3, name: "Average Cost Calculator"},
 ];
 
 const Overview: React.FC = () => {

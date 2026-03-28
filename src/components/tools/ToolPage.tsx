@@ -5,6 +5,7 @@ import ReturnCalc from "./return-calc/ReturnCalc";
 import {tools} from "../Overview";
 import {ArrowBackIosNew} from "@mui/icons-material";
 import RiskManager from "./risk-manager/RiskManager";
+import AverageCostCalc from "./target-return-calc/TargetReturnCalc";
 
 const ToolPage: React.FC = () => {
     const {toolId} = useParams<{ toolId: string }>();
@@ -15,6 +16,8 @@ const ToolPage: React.FC = () => {
                 return <ReturnCalc/>;
             case "2":
                 return <RiskManager/>;
+            case "3":
+                return <AverageCostCalc/>;
             default:
                 return <div>Tool not found</div>;
         }
