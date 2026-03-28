@@ -1,4 +1,6 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+
+const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 import {Box, Grid, Slider, Typography} from '@mui/material';
 
 interface AccountSettingsProps {
@@ -32,21 +34,16 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                                                                 }) => {
     const [localAccountSize, setLocalAccountSize] = useState(accountSize);
     const [localRiskPercentage, setLocalRiskPercentage] = useState(riskPercentage);
-    const [isDragging, setIsDragging] = useState(false);
     const lastAccountSizeRef = useRef(accountSize);
     const lastRiskPercentageRef = useRef(riskPercentage);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalAccountSize(accountSize);
-        }
-    }, [accountSize, isDragging]);
+        setLocalAccountSize(accountSize);
+    }, [accountSize]);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalRiskPercentage(riskPercentage);
-        }
-    }, [riskPercentage, isDragging]);
+        setLocalRiskPercentage(riskPercentage);
+    }, [riskPercentage]);
 
     return (
         <Grid container spacing={2} direction="column">
@@ -58,13 +55,11 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                     <Slider
                         value={localAccountSize}
                         onChange={(_, value) => {
-                            setIsDragging(true);
                             const numValue = value as number;
                             setLocalAccountSize(numValue);
                             lastAccountSizeRef.current = numValue;
                         }}
                         onChangeCommitted={() => {
-                            setIsDragging(false);
                             onAccountSizeChange(lastAccountSizeRef.current);
                         }}
                         min={1000}
@@ -73,6 +68,13 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                         marks={accountSizeMarks}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `€${value.toLocaleString('de-DE')}`}
+                        slotProps={{
+                            root: {
+                                onMouseDown: isIOS ? (e: React.MouseEvent) => {
+                                    e.preventDefault();
+                                } : undefined
+                            }
+                        }}
                     />
                 </Box>
             </Grid>
@@ -84,13 +86,11 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                     <Slider
                         value={localRiskPercentage}
                         onChange={(_, value) => {
-                            setIsDragging(true);
                             const numValue = value as number;
                             setLocalRiskPercentage(numValue);
                             lastRiskPercentageRef.current = numValue;
                         }}
                         onChangeCommitted={() => {
-                            setIsDragging(false);
                             onRiskPercentageChange(lastRiskPercentageRef.current);
                         }}
                         min={0.1}
@@ -99,6 +99,13 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
                         marks={riskMarks}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `${value}%`}
+                        slotProps={{
+                            root: {
+                                onMouseDown: isIOS ? (e: React.MouseEvent) => {
+                                    e.preventDefault();
+                                } : undefined
+                            }
+                        }}
                     />
                 </Box>
             </Grid>

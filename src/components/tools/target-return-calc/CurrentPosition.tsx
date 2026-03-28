@@ -1,4 +1,6 @@
 import React, {useState, useRef} from 'react';
+
+const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface CurrentPositionProps {
@@ -15,15 +17,12 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
     onBuyinChange,
 }) => {
     const [localShares, setLocalShares] = useState(10);
-    const [isDragging, setIsDragging] = useState(false);
     const [buyinFocused, setBuyinFocused] = useState(false);
     const lastValueRef = useRef(10);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalShares(Number.parseInt(currentShares || '0', 10));
-        }
-    }, [currentShares, isDragging]);
+        setLocalShares(Number.parseInt(currentShares || '0', 10));
+    }, [currentShares]);
 
     return (
         <Grid container spacing={2} direction="column">
@@ -40,13 +39,11 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
                     <Slider
                         value={localShares}
                         onChange={(_, value) => {
-                            setIsDragging(true);
                             const numValue = value as number;
                             setLocalShares(numValue);
                             lastValueRef.current = numValue;
                         }}
                         onChangeCommitted={() => {
-                            setIsDragging(false);
                             onSharesChange(lastValueRef.current.toString());
                         }}
                         min={1}
@@ -54,6 +51,13 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
                         step={1}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `${value}`}
+                        slotProps={{
+                            root: {
+                                onMouseDown: isIOS ? (e: React.MouseEvent) => {
+                                    e.preventDefault();
+                                } : undefined
+                            }
+                        }}
                     />
                 </Box>
             </Grid>

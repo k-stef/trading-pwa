@@ -1,4 +1,6 @@
 import React, {useState, useRef} from 'react';
+
+const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface NewPurchaseProps {
@@ -15,15 +17,12 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
     onPriceChange,
 }) => {
     const [localShares, setLocalShares] = useState(newShares);
-    const [isDragging, setIsDragging] = useState(false);
     const [priceFocused, setPriceFocused] = useState(false);
     const lastValueRef = useRef(newShares);
 
     React.useEffect(() => {
-        if (!isDragging) {
-            setLocalShares(newShares);
-        }
-    }, [newShares, isDragging]);
+        setLocalShares(newShares);
+    }, [newShares]);
 
     const totalCost = newShares * Number.parseFloat(newPrice || '0') + 1;
 
@@ -42,13 +41,11 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
                     <Slider
                         value={localShares}
                         onChange={(_, value) => {
-                            setIsDragging(true);
                             const numValue = value as number;
                             setLocalShares(numValue);
                             lastValueRef.current = numValue;
                         }}
                         onChangeCommitted={() => {
-                            setIsDragging(false);
                             onSharesChange(lastValueRef.current);
                         }}
                         min={1}
@@ -56,6 +53,13 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
                         step={1}
                         valueLabelDisplay="auto"
                         valueLabelFormat={(value) => `${value}`}
+                        slotProps={{
+                            root: {
+                                onMouseDown: isIOS ? (e: React.MouseEvent) => {
+                                    e.preventDefault();
+                                } : undefined
+                            }
+                        }}
                     />
                 </Box>
             </Grid>
