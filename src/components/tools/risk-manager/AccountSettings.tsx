@@ -40,13 +40,13 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
         if (!isDragging) {
             setLocalAccountSize(accountSize);
         }
-    }, [accountSize, isDragging]);
+    }, [accountSize]);
 
     React.useEffect(() => {
         if (!isDragging) {
             setLocalRiskPercentage(riskPercentage);
         }
-    }, [riskPercentage, isDragging]);
+    }, [riskPercentage]);
 
     return (
         <Grid container spacing={2} direction="column">

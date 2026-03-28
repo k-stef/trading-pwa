@@ -22,7 +22,7 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
         if (!isDragging) {
             setLocalShares(newShares);
         }
-    }, [newShares, isDragging]);
+    }, [newShares]);
 
     const totalCost = newShares * Number.parseFloat(newPrice || '0') + 1;
 

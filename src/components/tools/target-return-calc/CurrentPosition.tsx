@@ -22,7 +22,7 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
         if (!isDragging) {
             setLocalShares(Number.parseInt(currentShares || '0', 10));
         }
-    }, [currentShares, isDragging]);
+    }, [currentShares]);
 
     return (
         <Grid container spacing={2} direction="column">
