@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {Box, Grid, Slider, Typography} from '@mui/material';
 
 interface AccountSettingsProps {
@@ -25,36 +25,47 @@ const accountSizeMarks = [
 ];
 
 export const AccountSettings: React.FC<AccountSettingsProps> = ({
-    accountSize,
-    riskPercentage,
-    onAccountSizeChange,
-    onRiskPercentageChange,
-}) => {
-    const [displayAccountSize, setDisplayAccountSize] = React.useState(accountSize);
-    const [displayRiskPercentage, setDisplayRiskPercentage] = React.useState(riskPercentage);
+                                                                    accountSize,
+                                                                    riskPercentage,
+                                                                    onAccountSizeChange,
+                                                                    onRiskPercentageChange,
+                                                                }) => {
+    const [localAccountSize, setLocalAccountSize] = useState(accountSize);
+    const [localRiskPercentage, setLocalRiskPercentage] = useState(riskPercentage);
+    const [isDragging, setIsDragging] = useState(false);
+    const lastAccountSizeRef = useRef(accountSize);
+    const lastRiskPercentageRef = useRef(riskPercentage);
 
     React.useEffect(() => {
-        setDisplayAccountSize(accountSize);
-    }, [accountSize]);
+        if (!isDragging) {
+            setLocalAccountSize(accountSize);
+        }
+    }, [accountSize, isDragging]);
 
     React.useEffect(() => {
-        setDisplayRiskPercentage(riskPercentage);
-    }, [riskPercentage]);
+        if (!isDragging) {
+            setLocalRiskPercentage(riskPercentage);
+        }
+    }, [riskPercentage, isDragging]);
 
     return (
         <Grid container spacing={2} direction="column">
             <Grid>
                 <Typography gutterBottom>
-                    Account Size: €{displayAccountSize.toLocaleString('de-DE')}
+                    Account Size: €{localAccountSize.toLocaleString('de-DE')}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={accountSize}
+                        value={localAccountSize}
                         onChange={(_, value) => {
-                            setDisplayAccountSize(value as number);
+                            setIsDragging(true);
+                            const numValue = value as number;
+                            setLocalAccountSize(numValue);
+                            lastAccountSizeRef.current = numValue;
                         }}
-                        onChangeCommitted={(_, value) => {
-                            onAccountSizeChange(value as number);
+                        onChangeCommitted={() => {
+                            setIsDragging(false);
+                            onAccountSizeChange(lastAccountSizeRef.current);
                         }}
                         min={1000}
                         max={20000}
@@ -67,16 +78,20 @@ export const AccountSettings: React.FC<AccountSettingsProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Max Risk per Trade: {displayRiskPercentage.toFixed(2)}% (€{Math.round(accountSize * (displayRiskPercentage / 100)).toLocaleString('de-DE')})
+                    Max Risk per Trade: {localRiskPercentage.toFixed(2)}% (€{Math.round(accountSize * (localRiskPercentage / 100)).toLocaleString('de-DE')})
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={riskPercentage}
+                        value={localRiskPercentage}
                         onChange={(_, value) => {
-                            setDisplayRiskPercentage(value as number);
+                            setIsDragging(true);
+                            const numValue = value as number;
+                            setLocalRiskPercentage(numValue);
+                            lastRiskPercentageRef.current = numValue;
                         }}
-                        onChangeCommitted={(_, value) => {
-                            onRiskPercentageChange(value as number);
+                        onChangeCommitted={() => {
+                            setIsDragging(false);
+                            onRiskPercentageChange(lastRiskPercentageRef.current);
                         }}
                         min={0.1}
                         max={3}

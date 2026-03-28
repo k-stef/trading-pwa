@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface NewPurchaseProps {
@@ -14,12 +14,16 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
     onSharesChange,
     onPriceChange,
 }) => {
-    const [displayValue, setDisplayValue] = React.useState(newShares);
-    const [priceFocused, setPriceFocused] = React.useState(false);
+    const [localShares, setLocalShares] = useState(newShares);
+    const [isDragging, setIsDragging] = useState(false);
+    const [priceFocused, setPriceFocused] = useState(false);
+    const lastValueRef = useRef(newShares);
 
     React.useEffect(() => {
-        setDisplayValue(newShares);
-    }, [newShares]);
+        if (!isDragging) {
+            setLocalShares(newShares);
+        }
+    }, [newShares, isDragging]);
 
     const totalCost = newShares * Number.parseFloat(newPrice || '0') + 1;
 
@@ -32,16 +36,20 @@ export const NewPurchase: React.FC<NewPurchaseProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Number of Shares: {displayValue}
+                    Number of Shares: {localShares}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={newShares}
+                        value={localShares}
                         onChange={(_, value) => {
-                            setDisplayValue(value as number);
+                            setIsDragging(true);
+                            const numValue = value as number;
+                            setLocalShares(numValue);
+                            lastValueRef.current = numValue;
                         }}
-                        onChangeCommitted={(_, value) => {
-                            onSharesChange(value as number);
+                        onChangeCommitted={() => {
+                            setIsDragging(false);
+                            onSharesChange(lastValueRef.current);
                         }}
                         min={1}
                         max={200}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import {Box, Grid, Slider, TextField, Typography} from '@mui/material';
 
 interface CurrentPositionProps {
@@ -14,12 +14,16 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
     onSharesChange,
     onBuyinChange,
 }) => {
-    const [displayValue, setDisplayValue] = React.useState(Number.parseInt(currentShares || '10', 10));
-    const [buyinFocused, setBuyinFocused] = React.useState(false);
+    const [localShares, setLocalShares] = useState(10);
+    const [isDragging, setIsDragging] = useState(false);
+    const [buyinFocused, setBuyinFocused] = useState(false);
+    const lastValueRef = useRef(10);
 
     React.useEffect(() => {
-        setDisplayValue(Number.parseInt(currentShares || '10', 10));
-    }, [currentShares]);
+        if (!isDragging) {
+            setLocalShares(Number.parseInt(currentShares || '0', 10));
+        }
+    }, [currentShares, isDragging]);
 
     return (
         <Grid container spacing={2} direction="column">
@@ -30,16 +34,20 @@ export const CurrentPosition: React.FC<CurrentPositionProps> = ({
             </Grid>
             <Grid>
                 <Typography gutterBottom>
-                    Number of Shares: {displayValue}
+                    Number of Shares: {localShares}
                 </Typography>
                 <Box sx={{px: 1.5}}>
                     <Slider
-                        value={Number.parseInt(currentShares || '10', 10)}
+                        value={localShares}
                         onChange={(_, value) => {
-                            setDisplayValue(value as number);
+                            setIsDragging(true);
+                            const numValue = value as number;
+                            setLocalShares(numValue);
+                            lastValueRef.current = numValue;
                         }}
-                        onChangeCommitted={(_, value) => {
-                            onSharesChange((value as number).toString());
+                        onChangeCommitted={() => {
+                            setIsDragging(false);
+                            onSharesChange(lastValueRef.current.toString());
                         }}
                         min={1}
                         max={200}
